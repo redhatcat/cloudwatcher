@@ -8,4 +8,4 @@ right_aws 2.0.x
 AWS_KEY=mykey AWS_SECRET=mysecret ruby main.rb
 
 # Screen Shot
-![CloudWatcher](http://github.com/podman/cloudwatcher/raw/master/screenshots/cloudwatcher.png)
+![CloudWatcher](http://github.com/redhatcat/cloudwatcher/raw/master/screenshots/cloudwatcher.png)
