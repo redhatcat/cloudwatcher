@@ -2,31 +2,29 @@ require 'rubygems'
 require 'sinatra'
 require 'haml'
 require 'right_aws'
-require 'lib/right_acw_interface'
-require 'Base64'
 
 set :views, File.join(File.dirname(__FILE__),'views')
 
-AWS_KEY = ''
-AWS_SECRET = ''
+AWS_KEY = ENV['AWS_KEY']
+AWS_SECRET = ENV['AWS_SECRET']
 
 class Metric
-  
+
   def self.all
-    @metrics ||= Metric.get_metrics 
+    @metrics ||= Metric.get_metrics
   end
-  
+
   def self.get(id)
     Metric.all
     @metric = @metrics[id.to_i-1]
-    
+
     @now = DateTime.now
     if @metric[:data].empty?
       d = `mon-get-stats #{@metric[:name]} --end-time #{@now.to_s} --start-time #{(@now-1).to_s} --period 60 --namespace #{@metric[:namespace]} --statistics "Average" --statistics "Sum" --statistics "Maximum" --statistics "Minimum"`
     else
       d = `mon-get-stats #{@metric[:name]} --end-time #{@now.to_s} --start-time #{(@now-1).to_s} --period 60 --namespace #{@metric[:namespace]} --statistics "Average" --statistics "Sum" --statistics "Maximum" --statistics "Minimum" --dimensions "#{@metric[:data].gsub('{','').gsub('}','')}"`
     end
-    
+
     @data = []
     d.each_line("\n") do |line|
       matches = line.match(/^([-:\d\s]+)\s+([\d.]*)\s*([\d.E-]*)\s*([\d.E-]*)\s*([\d.E-]*)\s*([\d.E-]*)\s*([^\s]*)\s*$/)
@@ -40,15 +38,15 @@ class Metric
         :unit => matches[7]
       })
     end
-    
+
     return {:metric => @metric, :data => @data}
-  
+
   end
-  
+
   private
-  
+
   def self.get_metrics
-  
+
   end
 end
 
