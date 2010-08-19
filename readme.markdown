@@ -1,5 +1,11 @@
-# CloudWatcher
-CloudWatcher is a simple sinatra application for graphing data from Amazon's Cloud Watch service.
+# Requirements
+ruby 1.8.x
+sinatra 1.0
+haml 3.0.x
+right_aws 2.0.x
+
+# Running
+AWS_KEY=mykey AWS_SECRET=mysecret ruby main.rb
 
 # Screen Shot
 ![CloudWatcher](http://github.com/podman/cloudwatcher/raw/master/screenshots/cloudwatcher.png)
