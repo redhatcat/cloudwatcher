@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'haml'
-require 'right_aws'
+require 'AWS'
 
 set :views, File.join(File.dirname(__FILE__),'views')
 
@@ -50,10 +50,13 @@ class Metric
   end
 end
 
-@@acw = RightAws::AcwInterface.new(AWS_KEY, AWS_SECRET)
+@@acw = AWS::Cloudwatch::Base.new(:access_key_id => AWS_KEY,
+  :secret_access_key => AWS_SECRET)
 
 get '/' do
-  @metrics = @@acw.list_metrics.group_by{|m| m[:namespace]}
+  @metrics = @@acw.list_metrics['ListMetricsResult']['Metrics']['member'].group_by{|m|
+    m['Namespace']
+  }
   haml :index
 end
 

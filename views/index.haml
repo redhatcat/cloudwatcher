@@ -11,13 +11,13 @@
       - metrics.each do |metric|
         %tr
           %td
-            - if !metric[:dimentions].empty?
-              - link = "/metrics/#{metric[:namespace].gsub('/','_')}/#{metric[:measure_name]}/#{metric[:dimentions].keys[0]}/#{metric[:dimentions].values[0]}"
-              %a{:href => link}= metric[:measure_name]
+            - if metric['Dimensions']
+              - link = "/metrics/#{metric['Namespace'].gsub('/','_')}/#{metric['MeasureName']}/#{metric['Dimensions']['member'][0]}/#{metric['Dimensions'].values[0]}"
+              %a{:href => link}= metric['MeasureName']
             - else
-              - link = "/metrics/#{metric[:namespace].gsub('/','_')}/#{metric[:measure_name]}"
-              %a{:href =>  link}= metric[:measure_name]
-          %td= metric[:dimentions]
+              - link = "/metrics/#{metric['Namespace'].gsub('/','_')}/#{metric['MeasureName']}"
+              %a{:href =>  link}= metric['MeasureName']
+          %td= metric['Dimensions']
           %td
             %a{:href => link + '/5'} 5 Days
           %td
