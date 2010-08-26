@@ -90,21 +90,21 @@ get '/metrics/:namespace/:metric/:range' do
 end
 
 
-get '/metrics/:namespace/:metric/:dimention_name/:dimention_value' do
+get '/metrics/:namespace/:metric/:dimension_name/:dimension_value' do
   opts = {
     :statistics => ['Sum', 'Average', 'Maximum', 'Minimum'],
     :measure_name => params[:metric],
     :namespace => params[:namespace].gsub('_', '/'),
     :end_time => Time.now.utc,
     :start_time => Time.now.utc - (24*60*60),
-    :dimentions => {"#{params[:dimention_name]}" => "#{params[:dimention_value]}"}
+    :dimensions => {"#{params[:dimension_name]}" => "#{params[:dimension_value]}"}
   }
   @metric = params[:metric]
   @data = get_metrics(opts)
   haml :show
 end
 
-get '/metrics/:namespace/:metric/:dimention_name/:dimention_value/:range' do
+get '/metrics/:namespace/:metric/:dimension_name/:dimension_value/:range' do
   range = params[:range].to_i
   period = (range * 24 * 60 * 60)/1440
   opts = {
@@ -114,7 +114,7 @@ get '/metrics/:namespace/:metric/:dimention_name/:dimention_value/:range' do
     :namespace => params[:namespace].gsub('_', '/'),
     :end_time => Time.now.utc,
     :start_time => Time.now.utc - (24*60*60*range),
-    :dimentions => {"#{params[:dimention_name]}" => "#{params[:dimention_value]}"}
+    :dimensions => {"#{params[:dimension_name]}" => "#{params[:dimension_value]}"}
   }
   @metric = params[:metric]
   @data = get_metrics(opts)
