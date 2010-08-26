@@ -123,5 +123,5 @@ end
 
 def get_metrics(opts)
   d = @@acw.get_metric_statistics(opts)
-  return d[:datapoints]
+  return d['GetMetricStatisticsResult']['Datapoints']['member']
 end

@@ -5,12 +5,12 @@
   function drawChart() {
   var data = new google.visualization.DataTable();
   data.addColumn('datetime', 'Date');
-  = "data.addColumn('number', 'Average #{@data[0][:unit]}');"
-  = "data.addColumn('number', 'Sum #{@data[0][:unit]}');"
-  = "data.addColumn('number', 'Max #{@data[0][:unit]}');"
-  = "data.addColumn('number', 'Min #{@data[0][:unit]}');"
+  = "data.addColumn('number', 'Average #{@data[0]['Unit']}');"
+  = "data.addColumn('number', 'Sum #{@data[0]['Unit']}');"
+  = "data.addColumn('number', 'Max #{@data[0]['Unit']}');"
+  = "data.addColumn('number', 'Min #{@data[0]['Unit']}');"
   - @data.each do |metric|
-    = "data.addRow([new Date(Date.parse('#{metric[:timestamp]}')), #{metric[:average]}, #{metric[:sum]}, #{metric[:maximum]}, #{metric[:minimum]}]);"
+    = "data.addRow([new Date(Date.parse('#{metric['Timestamp']}')), #{metric['Average']}, #{metric['Sum']}, #{metric['Maximum']}, #{metric['Minimum']}]);"
   var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('chart_div'));
   chart.draw(data, {displayAnnotations: true, fill: 15, dateFormat: 'HH:mm MMMM dd, yyyy'});
   var table = new google.visualization.Table(document.getElementById('table_div'));
