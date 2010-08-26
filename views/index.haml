@@ -12,12 +12,15 @@
         %tr
           %td
             - if metric['Dimensions']
-              - link = "/metrics/#{metric['Namespace'].gsub('/','_')}/#{metric['MeasureName']}/#{metric['Dimensions']['member'][0]}/#{metric['Dimensions'].values[0]}"
+              - link = "/metrics/#{metric['Namespace'].gsub('/','_')}/#{metric['MeasureName']}/#{metric['Dimensions']['member'][0].values[0]}/#{metric['Dimensions']['member'][0].values[1]}"
               %a{:href => link}= metric['MeasureName']
             - else
               - link = "/metrics/#{metric['Namespace'].gsub('/','_')}/#{metric['MeasureName']}"
               %a{:href =>  link}= metric['MeasureName']
-          %td= metric['Dimensions']
+          - if metric['Dimensions']
+            %td= metric['Dimensions']['member'][0].values.inspect
+          - else
+            %td
           %td
             %a{:href => link + '/5'} 5 Days
           %td
